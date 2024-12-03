@@ -1,0 +1,24 @@
+services:
+  monolith:
+    container_name: beaver-iot
+    image: ${DOCKER_REPO:-beaver-iot}/monolith:${BEAVER_IOT_IMAGE_TAG:-latest}
+    ports:
+      - "8080:80"
+      - "9200:9200"
+    environment:
+      # override jvm options
+      - "JAVA_OPTS=-Xmx1024m -Xms1024m"
+      # override spring properties
+      - "SPRING_OPTS=--spring.profiles.active=dev"
+      # configure database connection (using h2 as default)
+      - "DB_TYPE=h2"
+      # allow remote access to h2 console
+      - "SPRING_H2_CONSOLE_ENABLED=true"
+      - "SPRING_H2_CONSOLE_SETTINGS_WEB_ALLOW_OTHERS=true"
+      - "SPRING_DATASOURCE_URL=jdbc:h2:file:~/beaver-iot/h2/beaver;AUTO_SERVER=TRUE"
+      - "SPRING_DATASOURCE_USERNAME=sa"
+      - "SPRING_DATASOURCE_PASSWORD="
+      - "SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.h2.Driver"
+    volumes:
+      # persist database data and log files
+      - "./target/monolith/:/root/beaver-iot/"

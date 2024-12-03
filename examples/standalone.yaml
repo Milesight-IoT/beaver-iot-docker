@@ -1,0 +1,43 @@
+services:
+  nginx:
+    container_name: beaver-iot-nginx
+    image: fabiocicerchia/nginx-lua:1.27.2-alpine3.20.3
+    ports:
+      - "8080:80"
+    volumes:
+      - "./standalone-nginx.conf:/etc/nginx/nginx.conf"
+      - "./target/standalone/nginx/conf.d/:/etc/nginx/conf.d/"
+  web:
+    container_name: beaver-iot-web
+    image: ${DOCKER_REPO:-beaver-iot}/web:${BEAVER_IOT_IMAGE_TAG:-latest}
+  server:
+    container_name: beaver-iot-server
+    image: ${DOCKER_REPO:-beaver-iot}/server:${BEAVER_IOT_IMAGE_TAG:-latest}
+    environment:
+      # override jvm options
+      - "JAVA_OPTS=-Xmx1024m -Xms1024m"
+      # override spring properties
+      - "SPRING_OPTS=--spring.profiles.active=dev"
+      # configure database connection
+      - "DB_TYPE=postgres"
+      - "SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver"
+      - "SPRING_DATASOURCE_USERNAME=postgres"
+      - "SPRING_DATASOURCE_PASSWORD=postgres"
+      - "SPRING_DATASOURCE_URL=jdbc:postgresql://beaver-iot-postgresql:5432/postgres"
+    volumes:
+      # persist log files
+      - "./target/standalone/logs/:/root/beaver-iot/logs/"
+      # load plugins
+      - "./target/standalone/plugins/:/root/beaver-iot/plugins/"
+  postgresql:
+    container_name: beaver-iot-postgresql
+    image: postgres:17.0-alpine3.20
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+      - "POSTGRES_DB=postgres"
+      - "PGDATA=/var/lib/postgresql/data/pgdata"
+    volumes:
+      - "./target/standalone/postgresql/:/var/lib/postgresql/data/"
