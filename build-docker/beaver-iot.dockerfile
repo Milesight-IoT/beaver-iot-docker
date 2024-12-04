@@ -1,6 +1,6 @@
 ARG DOCKER_REPO=beaver-iot
-ARG BASE_SERVER_IMAGE=beaver-iot/server
-ARG BASE_WEB_IMAGE=beaver-iot/web
+ARG BASE_SERVER_IMAGE=milesight/beaver-iot-server
+ARG BASE_WEB_IMAGE=milesight/beaver-iot-web
 
 FROM ${BASE_WEB_IMAGE} AS web
 

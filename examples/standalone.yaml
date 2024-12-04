@@ -9,10 +9,10 @@ services:
       - "./target/standalone/nginx/conf.d/:/etc/nginx/conf.d/"
   web:
     container_name: beaver-iot-web
-    image: ${DOCKER_REPO:-beaver-iot}/web:${BEAVER_IOT_IMAGE_TAG:-latest}
+    image: ${DOCKER_REPO:-milesight}/beaver-iot-web:${BEAVER_IOT_IMAGE_TAG:-latest}
   server:
     container_name: beaver-iot-server
-    image: ${DOCKER_REPO:-beaver-iot}/server:${BEAVER_IOT_IMAGE_TAG:-latest}
+    image: ${DOCKER_REPO:-milesight}/beaver-iot-server:${BEAVER_IOT_IMAGE_TAG:-latest}
     environment:
       # override jvm options
       - "JAVA_OPTS=-Xmx1024m -Xms1024m"

@@ -1,44 +1,44 @@
 services:
   web:
-    image: "${DOCKER_REPO:-beaver-iot}/web"
+    image: "${DOCKER_REPO:-milesight}/beaver-iot-web"
     build:
       context: .
-      dockerfile: ./web.dockerfile
+      dockerfile: ./beaver-iot-web.dockerfile
       target: web
       network: host
       args:
         - "WEB_GIT_REPO_URL=${WEB_GIT_REPO_URL:-}"
         - "WEB_GIT_BRANCH=${WEB_GIT_BRANCH:-origin/develop}"
       tags:
-        - "${DOCKER_REPO:-beaver-iot}/web:${PRODUCTION_TAG:-latest}"
+        - "${DOCKER_REPO:-milesight}/beaver-iot-web:${PRODUCTION_TAG:-latest}"
   server:
-    image: "${DOCKER_REPO:-beaver-iot}/server"
+    image: "${DOCKER_REPO:-milesight}/beaver-iot-server"
     build:
       context: .
-      dockerfile: ./server.dockerfile
+      dockerfile: ./beaver-iot-server.dockerfile
       target: server
       network: host
       args:
         - "SERVER_GIT_REPO_URL=${SERVER_GIT_REPO_URL:-}"
         - "SERVER_GIT_BRANCH=${SERVER_GIT_BRANCH:-origin/dev}"
       tags:
-        - "${DOCKER_REPO:-beaver-iot}/server:${PRODUCTION_TAG:-latest}"
+        - "${DOCKER_REPO:-milesight}/beaver-iot-server:${PRODUCTION_TAG:-latest}"
   monolith:
-    image: "${DOCKER_REPO:-beaver-iot}/monolith"
+    image: "${DOCKER_REPO:-milesight}/beaver-iot"
     depends_on:
       - web
       - server
     build:
       context: .
-      dockerfile: ./monolith.dockerfile
+      dockerfile: ./beaver-iot.dockerfile
       target: monolith
       network: host
       args:
         - "SERVER_GIT_REPO_URL=${SERVER_GIT_REPO_URL:-}"
-        - "SERVER_GIT_BRANCH=${SERVER_GIT_BRANCH:-origin/dev}"
+        - "SERVER_GIT_BRANCH=${SERVER_GIT_BRANCH:-origin/main}"
         - "WEB_GIT_REPO_URL=${WEB_GIT_REPO_URL:-}"
-        - "WEB_GIT_BRANCH=${WEB_GIT_BRANCH:-origin/develop}"
-        - "BASE_SERVER_IMAGE=${DOCKER_REPO:-beaver-iot}/server:${PRODUCTION_TAG:-latest}"
-        - "BASE_WEB_IMAGE=${DOCKER_REPO:-beaver-iot}/web:${PRODUCTION_TAG:-latest}"
+        - "WEB_GIT_BRANCH=${WEB_GIT_BRANCH:-origin/main}"
+        - "BASE_SERVER_IMAGE=${DOCKER_REPO:-milesight}/beaver-iot-server:${PRODUCTION_TAG:-latest}"
+        - "BASE_WEB_IMAGE=${DOCKER_REPO:-milesight}/beaver-iot-web:${PRODUCTION_TAG:-latest}"
       tags:
-        - "${DOCKER_REPO:-beaver-iot}/monolith:${PRODUCTION_TAG:-latest}"
+        - "${DOCKER_REPO:-milesight}/monolith:${PRODUCTION_TAG:-latest}"

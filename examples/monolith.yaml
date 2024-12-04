@@ -1,7 +1,7 @@
 services:
   monolith:
     container_name: beaver-iot
-    image: ${DOCKER_REPO:-beaver-iot}/monolith:${BEAVER_IOT_IMAGE_TAG:-latest}
+    image: ${DOCKER_REPO:-milesight}/beaver-iot:${BEAVER_IOT_IMAGE_TAG:-latest}
     ports:
       - "8080:80"
       - "9200:9200"

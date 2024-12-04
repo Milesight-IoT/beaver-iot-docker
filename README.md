@@ -47,7 +47,7 @@ Execute the build script to commence the build process:
 If you need to build only specific images, you can specify them using the `--build-target` parameter:
 
 ```shell
-./build-docker/build.sh --build-target=server,monolith
+./build-docker/build.sh --build-target=beaver-iot,beaver-iot-web
 ```
 
 For additional configuration options, use the --help option:
