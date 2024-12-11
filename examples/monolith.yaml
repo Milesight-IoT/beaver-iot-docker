@@ -4,8 +4,9 @@ services:
     image: ${DOCKER_REPO:-milesight}/beaver-iot:${BEAVER_IOT_IMAGE_TAG:-latest}
     ports:
       - "8080:80"
-      - "9200:9200"
     environment:
+      # tell the nginx where to find the api server
+      - "SERVER_HOST=localhost"
       # override jvm options
       - "JAVA_OPTS=-Xmx1024m -Xms1024m"
       # override spring properties
@@ -13,8 +14,8 @@ services:
       # configure database connection (using h2 as default)
       - "DB_TYPE=h2"
       # allow remote access to h2 console
-      - "SPRING_H2_CONSOLE_ENABLED=true"
-      - "SPRING_H2_CONSOLE_SETTINGS_WEB_ALLOW_OTHERS=true"
+      #- "SPRING_H2_CONSOLE_ENABLED=true"
+      #- "SPRING_H2_CONSOLE_SETTINGS_WEB_ALLOW_OTHERS=true"
       - "SPRING_DATASOURCE_URL=jdbc:h2:file:~/beaver-iot/h2/beaver;AUTO_SERVER=TRUE"
       - "SPRING_DATASOURCE_USERNAME=sa"
       - "SPRING_DATASOURCE_PASSWORD="
