@@ -24,7 +24,7 @@ server {
     }
 
     location ${MQTT_BROKER_WS_PATH} {
-      proxy_pass http://${BEAVER_IOT_API_HOST}:${MQTT_BROKER_WS_PORT};
+      proxy_pass http://${BEAVER_IOT_API_HOST}:${MQTT_BROKER_MOQUETTE_WEBSOCKET_PORT};
       proxy_ssl_server_name   on;
       proxy_http_version      1.1;
       proxy_set_header        Upgrade         $http_upgrade;
