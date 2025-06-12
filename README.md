@@ -1,5 +1,7 @@
 # Beaver IoT Docker
 
+[![Build Docker Image](https://github.com/Milesight-IoT/beaver-iot-docker/actions/workflows/run-build.yaml/badge.svg)](https://github.com/Milesight-IoT/beaver-iot-docker/actions/workflows/run-build.yaml)
+
 ## Requirements
 
 - Docker: Version 20.10 or higher
