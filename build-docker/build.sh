@@ -98,6 +98,8 @@ function do_build() {
     --build-arg "API_GIT_REPO_URL=${API_GIT_REPO_URL}" \
     --build-arg "API_GIT_BRANCH=${API_GIT_BRANCH}" \
     --build-arg "API_MVN_PROFILE=${API_MVN_PROFILE}" \
+    --build-arg "API_MVN_SNAPSHOT_REPO_ID=${API_MVN_SNAPSHOT_REPO_ID}" \
+    --build-arg "API_MVN_SNAPSHOT_REPO_URL=${API_MVN_SNAPSHOT_REPO_URL}" \
     --build-arg "WEB_GIT_REPO_URL=${WEB_GIT_REPO_URL}" \
     --build-arg "WEB_GIT_BRANCH=${WEB_GIT_BRANCH}" \
     --build-arg "BASE_API_IMAGE=${BASE_API_IMAGE}" \
