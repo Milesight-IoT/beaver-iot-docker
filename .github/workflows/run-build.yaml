@@ -48,6 +48,14 @@ on:
         options:
             - release
             - snapshot
+      api_mvn_snapshot_repository_id:
+        description: 'The Maven snapshot repository id to use for the API build'
+        required: true
+        default: 'central-portal-snapshots'
+      api_mvn_snapshot_repository_url:
+        description: 'The Maven snapshot repository url to use for the API build'
+        required: true
+        default: 'https://central.sonatype.com/repository/maven-snapshots/'
 
 jobs:
   build:
@@ -97,3 +105,5 @@ jobs:
           API_GIT_REPO_URL: ${{ github.event.inputs.api_git_repo_url }}
           API_GIT_BRANCH: ${{ github.event.inputs.api_git_branch }}
           API_MVN_PROFILE: ${{ github.event.inputs.api_mvn_profile }}
+          API_MVN_SNAPSHOT_REPOSITORY_ID: ${{ github.event.inputs.api_mvn_snapshot_repository_id }}
+          API_MVN_SNAPSHOT_REPOSITORY_URL: ${{ github.event.inputs.api_mvn_snapshot_repository_url }}
