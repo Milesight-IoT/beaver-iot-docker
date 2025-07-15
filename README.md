@@ -31,9 +31,9 @@ DOCKER_REGISTRY=milesight
 PRODUCTION_TAG=latest
 # Git repository URLs and branches
 WEB_GIT_REPO_URL=https://github.com/Milesight-IoT/beaver-iot-web.git
-WEB_GIT_BRANCH=origin/main
+WEB_GIT_BRANCH=origin/release
 API_GIT_REPO_URL=https://github.com/Milesight-IoT/beaver-iot.git
-API_GIT_BRANCH=origin/main
+API_GIT_BRANCH=origin/release
 ```
 
 > The subsequent build steps will use the configurations in this file, whether you use build.sh or docker compose.
