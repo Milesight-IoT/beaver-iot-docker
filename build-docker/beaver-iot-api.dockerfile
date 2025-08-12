@@ -16,6 +16,8 @@ RUN git checkout ${API_GIT_BRANCH} && mvn package -U -Dmaven.repo.local=.m2/repo
 FROM amazoncorretto:17-alpine3.20-jdk AS api
 COPY --from=api-builder /beaver-iot-api/application/application-standard/target/application-standard-exec.jar /application.jar
 
+RUN apk add --no-cache fontconfig ttf-dejavu font-noto font-noto-cjk font-noto-emoji
+
 # Create folder for spring
 VOLUME /tmp
 VOLUME /beaver-iot
