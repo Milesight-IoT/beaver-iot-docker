@@ -95,7 +95,7 @@ function do_build() {
   fi
 
   if [ -n "$BLUEPRINT_DEFAULT_LOCAL_ZIP_URL" ]; then
-    wget -O "$$WORK_DIR/default_local_blueprint.zip" "$BLUEPRINT_DEFAULT_LOCAL_ZIP_URL"
+    wget -O "$WORK_DIR/default_local_blueprint.zip" "$BLUEPRINT_DEFAULT_LOCAL_ZIP_URL"
   fi
 
   docker buildx build \
