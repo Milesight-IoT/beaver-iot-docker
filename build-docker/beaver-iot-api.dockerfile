@@ -10,12 +10,12 @@ WORKDIR /
 RUN git clone ${API_GIT_REPO_URL} beaver-iot-api
 
 WORKDIR /beaver-iot-api
-COPY default_local_blueprint.zip* /beaver-iot-api
 RUN git checkout ${API_GIT_BRANCH} && mvn package -U -Dmaven.repo.local=.m2/repository -P${API_MVN_PROFILE} -Dsnapshot-repository-id=${API_MVN_SNAPSHOT_REPO_ID} -Dsnapshot-repository-url=${API_MVN_SNAPSHOT_REPO_URL} -DskipTests -am -pl application/application-standard
 
 
 FROM amazoncorretto:17-alpine3.20-jdk AS api
 COPY --from=api-builder /beaver-iot-api/application/application-standard/target/application-standard-exec.jar /application.jar
+COPY default_local_blueprint.zip* /
 
 RUN apk add --no-cache fontconfig ttf-dejavu font-noto font-noto-cjk font-noto-emoji
 
@@ -29,7 +29,7 @@ ENV MQTT_BROKER_MQTT_PORT=1883
 ENV MQTT_BROKER_WS_PATH=/mqtt
 ENV MQTT_BROKER_WS_PORT=""
 ENV MQTT_BROKER_MOQUETTE_WEBSOCKET_PORT=8083
-ENV BLUEPRINT_LIBRARY_DEFAULT_ADDRESS_LOCAL_ZIP_FILE=/beaver-iot-api/default_local_blueprint.zip
+ENV BLUEPRINT_LIBRARY_DEFAULT_ADDRESS_LOCAL_ZIP_FILE=/default_local_blueprint.zip
 
 EXPOSE 9200
 EXPOSE 1883
